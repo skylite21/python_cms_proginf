@@ -3,6 +3,7 @@ from flask import Flask
 from flask import Flask
 from flask_login import LoginManager
 from python_cms.db import db
+from flask_ckeditor import CKEditor
 
 from python_cms.blueprints.pages import pages_blueprint
 from python_cms.blueprints.auth import auth_blueprint
@@ -24,6 +25,11 @@ app.secret_key = environ.get('SECRET_KEY')
 # https://flask-login.readthedocs.io/en/latest
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+# https://flask-ckeditor.readthedocs.io/en/latest/index.html
+app.config[
+    'CKEDITOR_FILE_UPLOADER'] = 'pages.upload'  # this value can be endpoint or url
+ckeditor = CKEditor(app)
 
 
 @app.before_first_request
